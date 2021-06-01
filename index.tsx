@@ -86,7 +86,7 @@ const TextInputMask = forwardRef<Handles, TextInputMaskProps>(({
           onChangeText={async (masked) => {
             setMaskedValue(masked)
             if (primaryFormat) {
-              const unmasked = await unmask(primaryFormat, masked, true)
+              const unmasked = await unmask(primaryFormat, masked, true, { customNotations })
               onChangeText?.(masked, unmasked)
             } else {
               onChangeText?.(masked)
@@ -106,8 +106,8 @@ export const useEffectAsync = (
 }
 
 interface MaskOperations {
-  mask: (mask: string, value: string, autocomplete: boolean) => Promise<string>,
-  unmask: (mask: string, value: string, autocomplete: boolean) => Promise<string>
+  mask: (mask: string, value: string, autocomplete: boolean, options?: MaskOptions ) => Promise<string>,
+  unmask: (mask: string, value: string, autocomplete: boolean, options?: MaskOptions) => Promise<string>
   setMask: (reactNode: number, primaryFormat: string, options?: MaskOptions) => void
 }
 
